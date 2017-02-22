@@ -1,6 +1,7 @@
 package com.space;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -10,6 +11,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.viewport.FitViewport;
+
+import javafx.scene.text.Text;
 
 /**
  * Created by adolf on 22/02/2017.
@@ -21,6 +24,8 @@ public class MenuPrincipal extends PantallaBase {
     private Skin skin;
     private TextButton jugar;
     private TextButton salir;
+    private Music musica1;
+    private Text texto;
 
 
 
@@ -30,6 +35,8 @@ public class MenuPrincipal extends PantallaBase {
         stage = new Stage(new FitViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight()));
         skin = new Skin(Gdx.files.internal("Skin/uiskin.json"));
         menuInicio = new Image(game.getManager().get("menu2.jpg", Texture.class));
+        musica1 = game.getManager().get("stars.ogg");
+
 
         jugar = new TextButton("Jugar", skin);
         jugar.setPosition(Gdx.graphics.getWidth() / 2 -200 , Gdx.graphics.getHeight() / 2 );
@@ -42,6 +49,8 @@ public class MenuPrincipal extends PantallaBase {
         salir.setColor(255,0,0,255);
 
         menuInicio.setPosition(Gdx.graphics.getWidth() / 2 - menuInicio.getWidth() / 2, Gdx.graphics.getHeight() / 2 - menuInicio.getHeight() / 2);
+
+
         stage.addActor(menuInicio);
         stage.addActor(jugar);
         stage.addActor(salir);
@@ -61,6 +70,8 @@ public class MenuPrincipal extends PantallaBase {
         });
     }
 
+
+
     @Override
     public void dispose() {
         stage.dispose();
@@ -75,11 +86,15 @@ public class MenuPrincipal extends PantallaBase {
 
     @Override
     public void show() {
+
         Gdx.input.setInputProcessor(stage);
+        musica1.play();
     }
 
     @Override
     public void hide() {
+
         Gdx.input.setInputProcessor(null);
+        musica1.stop();
     }
 }
